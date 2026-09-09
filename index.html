@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALPHA X | Fusion Energy Drink</title>
+    
+    <!-- Meta tags -->
+    <meta name="description" content="Alpha X Fusion Energy - Clean, health-based functional energy drink with natural extracts, vital vitamins, and 40% less sugar.">
+    <meta name="theme-color" content="#080a0f">
+
+    <!-- Premium Bold Energy Font: Outfit & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Three.js r128 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+    <!-- Background Subtle Ambient Glow -->
+    <div class="ambient-glow" id="ambientGlow"></div>
+
+    <!-- Header Navigation -->
+    <header class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="brand-logo">
+                <div class="logo-badge">AX</div>
+                <span class="logo-name">ALPHA <span class="accent-blue">X</span></span>
+            </a>
+
+            <!-- Navigation Menu (Desktop links & Mobile drawer) -->
+            <nav class="nav-links" id="navLinks">
+                <a href="#hero" class="nav-item active">Home</a>
+                <a href="#about" class="nav-item">Formula</a>
+                <a href="#flavors" class="nav-item">Flavors</a>
+                <a href="#blog" class="nav-item">Blog</a>
+                <a href="#order" class="nav-item">Pre-Order</a>
+                <div class="nav-mobile-cta">
+                    <button class="btn btn-primary w-full" onclick="openOrderModal('Alpha Neon Original'); closeMobileMenu();">
+                        Buy Now &bull; PKR 350
+                    </button>
+                </div>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="btn btn-primary btn-sm nav-cta-btn" onclick="openOrderModal('Alpha Neon Original')">
+                    Buy Now &bull; PKR 350
+                </button>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <span class="nav-toggle-bar"></span>
+                    <span class="nav-toggle-bar"></span>
+                    <span class="nav-toggle-bar"></span>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Dropdown Backdrop -->
+        <div class="nav-backdrop" id="navBackdrop"></div>
+    </header>
+
+    <!-- MAIN SECTIONS -->
+    <main>
+
+        <!-- SECTION 1: HERO (Featuring 3D Rotating Blue Bottle) -->
+        <section class="hero-section" id="hero">
+            <div class="container hero-grid">
+                <div class="hero-text">
+                    <div class="pill-badge">
+                        <span class="pill-dot"></span> Health-First Functional Energy
+                    </div>
+                    <h1 class="hero-headline">
+                        WHEN ENERGY DRAINS,<br>
+                        <span class="gradient-text">GO ALPHA.</span>
+                    </h1>
+                    <p class="hero-subtext">
+                        Pakistan’s first clean functional energy drink. Formulated with natural fruit extracts, vital B-vitamins, and <strong>40% less sugar</strong> for sustained peak focus without the crash.
+                    </p>
+
+                    <div class="hero-specs-row">
+                        <div class="spec-box">
+                            <strong>40% Less</strong>
+                            <span>Sugar vs Sodas</span>
+                        </div>
+                        <div class="spec-box">
+                            <strong>B6 & B12</strong>
+                            <span>Vital Vitamins</span>
+                        </div>
+                        <div class="spec-box">
+                            <strong>0g Crash</strong>
+                            <span>Clean 5-Hr Focus</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-btn-group">
+                        <button class="btn btn-primary" onclick="scrollToSection('flavors')">
+                            Explore All Flavors <i class="fa-solid fa-arrow-down"></i>
+                        </button>
+                        <button class="btn btn-ghost" onclick="openOrderModal('Alpha Neon Original (PKR 350)')">
+                            Order Alpha Neon
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3D Rotating Blue Bottle Stage in Hero -->
+                <div class="hero-3d-space">
+                    <div class="hero-can-stage" id="heroCanStage">
+                        <div class="hero-can-glow" id="heroCanGlow"></div>
+                        <canvas id="three-canvas" class="hero-3d-canvas"></canvas>
+                        <div class="hero-can-shadow"></div>
+                    </div>
+                    <div class="scroll-prompt">
+                        <i class="fa-solid fa-arrow-down"></i>
+                        <span>Scroll down to explore formula & flavors</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 2: THE CLEAN FORMULA -->
+        <section class="section about-section" id="about">
+            <div class="container">
+                <div class="section-title-wrap text-center">
+                    <span class="section-tag">NUTRITIONAL INTEGRITY</span>
+                    <h2>Why Alpha X is <span class="gradient-text">Different</span></h2>
+                    <p class="section-desc">We replaced synthetic stimulant spikes and excessive sugar with natural bio-compounds.</p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-box">
+                        <div class="feature-icon icon-blue">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <h3>100% Real Extracts</h3>
+                        <p>Infused with real mango, pineapple, blueberry, white tea, and pure coconut water minerals.</p>
+                    </div>
+
+                    <div class="feature-box">
+                        <div class="feature-icon icon-blue">
+                            <i class="fa-solid fa-dna"></i>
+                        </div>
+                        <h3>Vitamin B6, B12 & C</h3>
+                        <p>Essential co-factors that support natural ATP energy production and combat mental fatigue.</p>
+                    </div>
+
+                    <div class="feature-box">
+                        <div class="feature-icon icon-blue">
+                            <i class="fa-solid fa-chart-line-down"></i>
+                        </div>
+                        <h3>40% Less Sugar</h3>
+                        <p>Only 5.8g low-glycemic cane sugar per can. Clean energy curve with zero sudden insulin crash.</p>
+                    </div>
+
+                    <div class="feature-box">
+                        <div class="feature-icon icon-blue">
+                            <i class="fa-solid fa-recycle"></i>
+                        </div>
+                        <h3>100% Recyclable Can</h3>
+                        <p>Sleek 250ml infinitely recyclable aluminum. 0% single-use plastic packaging.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 3: THE FLAVORS -->
+        <section class="section flavors-section" id="flavors">
+            <div class="container">
+                <div class="section-title-wrap text-center">
+                    <span class="section-tag">SIGNATURE LINEUP</span>
+                    <h2>Choose Your <span class="gradient-text">Energy Pathway</span></h2>
+                    <p class="section-desc">Each flavor is calibrated for a specific functional energy state.</p>
+                </div>
+
+                <!-- Product Display Cards Grid with Flavor Images -->
+                <div class="flavor-cards-grid four-cols">
+                    
+                    <!-- Alpha Neon Original -->
+                    <div class="flavor-card active" id="card-blue">
+                        <div class="card-img-wrap">
+                            <img src="can-blue.png" alt="Alpha Neon Original" class="card-can-img">
+                        </div>
+                        <div class="card-badge bg-blue-light text-blue">SIGNATURE CYBER</div>
+                        <h3 class="card-title text-blue">Alpha Neon</h3>
+                        <p class="card-sub">Cyber Fusion for Focus & Stamina</p>
+                        <p class="card-desc">
+                            The original iconic Alpha X formulation. Crisp, revitalizing citrus-berry energy with essential B-vitamins for prolonged focus.
+                        </p>
+                        <div class="card-footer">
+                            <span class="card-price">PKR 350 <small>/ 250ml</small></span>
+                            <button class="btn btn-sm btn-blue" onclick="openOrderModal('Alpha Neon Original (PKR 350)')">Order</button>
+                        </div>
+                    </div>
+
+                    <!-- Tropical Heat -->
+                    <div class="flavor-card" id="card-tropical">
+                        <div class="card-img-wrap">
+                            <img src="can-tropical.png" alt="Tropical Heat" class="card-can-img">
+                        </div>
+                        <div class="card-badge bg-orange-light text-orange">METABOLIC SPARK</div>
+                        <h3 class="card-title text-orange">Tropical Heat</h3>
+                        <p class="card-sub">Mango & Pineapple Blast with Kick</p>
+                        <p class="card-desc">
+                            Juicy tropical mango and tangy pineapple with a subtle hint of habanero lime zest for metabolic ignition and gym workouts.
+                        </p>
+                        <div class="card-footer">
+                            <span class="card-price">PKR 350 <small>/ 250ml</small></span>
+                            <button class="btn btn-sm btn-orange" onclick="openOrderModal('Tropical Heat (PKR 350)')">Order</button>
+                        </div>
+                    </div>
+
+                    <!-- Zen Botanika -->
+                    <div class="flavor-card" id="card-zen">
+                        <div class="card-img-wrap">
+                            <img src="can-zen.png" alt="Zen Botanika" class="card-can-img">
+                        </div>
+                        <div class="card-badge bg-green-light text-green">COGNITIVE FOCUS</div>
+                        <h3 class="card-title text-green">Zen Botanika</h3>
+                        <p class="card-sub">Lavender & White Tea Natural Elixir</p>
+                        <p class="card-desc">
+                            Wild blueberry, gentle French lavender, and white tea polyphenols crafted for deep study, coding marathons, and flow state.
+                        </p>
+                        <div class="card-footer">
+                            <span class="card-price">PKR 350 <small>/ 250ml</small></span>
+                            <button class="btn btn-sm btn-green" onclick="openOrderModal('Zen Botanika (PKR 350)')">Order</button>
+                        </div>
+                    </div>
+
+                    <!-- Global Spice -->
+                    <div class="flavor-card" id="card-spice">
+                        <div class="card-img-wrap">
+                            <img src="can-spice.png" alt="Global Spice" class="card-can-img">
+                        </div>
+                        <div class="card-badge bg-red-light text-red">HYDRATION & RECOVERY</div>
+                        <h3 class="card-title text-red">Global Spice</h3>
+                        <p class="card-sub">Coconut Water & Cardamom Infusion</p>
+                        <p class="card-desc">
+                            Isotonic coconut water minerals infused with fragrant green cardamom and citrus to restore electrolytes and stamina.
+                        </p>
+                        <div class="card-footer">
+                            <span class="card-price">PKR 350 <small>/ 250ml</small></span>
+                            <button class="btn btn-sm btn-red" onclick="openOrderModal('Global Spice (PKR 350)')">Order</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 3-Can Combo Pack Banner -->
+                <div class="combo-banner">
+                    <div class="combo-info">
+                        <div class="combo-tag">BEST VALUE BUNDLE</div>
+                        <h3>Alpha X Trilogy 3-Can Combo Pack</h3>
+                        <p>Includes 1x Tropical Heat, 1x Zen Botanika, and 1x Global Spice (or custom mix).</p>
+                    </div>
+                    <div class="combo-action">
+                        <div class="combo-price">
+                            <span class="strike">PKR 1,050</span>
+                            <strong>PKR 990</strong>
+                        </div>
+                        <button class="btn btn-primary" onclick="openOrderModal('Trilogy 3-Can Combo (PKR 990)')">
+                            Grab 3-Pack Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 4: BLOG & BRAND STORIES -->
+        <section class="section blog-section" id="blog">
+            <div class="container">
+                <div class="section-title-wrap text-center">
+                    <span class="section-tag">ALPHA X JOURNAL</span>
+                    <h2>Insights & <span class="gradient-text">Science</span></h2>
+                    <p class="section-desc">Learn about the biochemistry, formulations, and mission behind Alpha X.</p>
+                </div>
+
+                <div class="blog-grid">
+                    
+                    <!-- Article 1 -->
+                    <article class="blog-card" onclick="openArticleModal(1)">
+                        <div class="blog-image-wrap">
+                            <img src="can-blue.png" alt="Alpha X Neon Can" class="blog-img">
+                            <span class="blog-tag">Health & Science</span>
+                        </div>
+                        <div class="blog-content">
+                            <span class="blog-meta"><i class="fa-regular fa-clock"></i> 5 min read</span>
+                            <h3 class="blog-card-title">How Alpha X Eliminates the Traditional Energy Drink Sugar Crash</h3>
+                            <p class="blog-card-desc">Explore how our low-glycemic 5.8g sugar formula and B-vitamin co-enzymes deliver clean ATP energy without insulin spikes.</p>
+                            <span class="read-btn">Read Full Article <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </article>
+
+                    <!-- Article 2 -->
+                    <article class="blog-card" onclick="openArticleModal(2)">
+                        <div class="blog-image-wrap">
+                            <img src="all-flavour.jpeg" alt="Alpha X 3 Cans" class="blog-img">
+                            <span class="blog-tag">Flavor Formulation</span>
+                        </div>
+                        <div class="blog-content">
+                            <span class="blog-meta"><i class="fa-regular fa-clock"></i> 4 min read</span>
+                            <h3 class="blog-card-title">Inside the Signature Trilogy: Tropical Heat, Zen Botanika & Global Spice</h3>
+                            <p class="blog-card-desc">The formulation journey behind using real fruit extracts, lavender polyphenols, and coconut water minerals.</p>
+                            <span class="read-btn">Read Full Article <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </article>
+
+                    <!-- Article 3 -->
+                    <article class="blog-card" onclick="openArticleModal(3)">
+                        <div class="blog-fallback-img bg-dark-gradient">
+                            <img src="recycle.jpg" alt="Alpha X 3 Cans" class="blog-img">
+                            <span class="blog-tag">Sustainability</span>
+                        </div>
+                        <div class="blog-content">
+                            <span class="blog-meta"><i class="fa-regular fa-clock"></i> 3 min read</span>
+                            <h3 class="blog-card-title">100% Recyclable Aluminum: Why Alpha X Says Zero to Single-Use Plastic</h3>
+                            <p class="blog-card-desc">How infinite aluminum recycling protects Pakistan’s environment and saves 95% energy compared to plastic bottles.</p>
+                            <span class="read-btn">Read Full Article <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 5: PRICING & ORDER -->
+        <section class="section order-section" id="order">
+            <div class="container">
+                <div class="section-title-wrap text-center">
+                    <span class="section-tag">PRE-ORDER & PRICING</span>
+                    <h2>Simple, <span class="gradient-text">Honest Pricing</span></h2>
+                    <p class="section-desc">Delivered to your home, hostel, or university campus across Pakistan.</p>
+                </div>
+
+                <div class="pricing-cards-row">
+                    
+                    <div class="price-card">
+                        <span class="price-type">SINGLE CAN</span>
+                        <h3 class="price-val">PKR 350</h3>
+                        <p class="price-desc">Pick any single 250ml flavor.</p>
+                        <ul class="price-list">
+                            <li><i class="fa-solid fa-check"></i> 1x Can of your choice</li>
+                            <li><i class="fa-solid fa-check"></i> 40% Less Sugar</li>
+                            <li><i class="fa-solid fa-check"></i> Added B6, B12 & Vitamin C</li>
+                        </ul>
+                        <button class="btn btn-outline w-full" onclick="openOrderModal('Single Can (PKR 350)')">Pre-Order Single</button>
+                    </div>
+
+                    <div class="price-card featured">
+                        <div class="badge-featured">RECOMMENDED</div>
+                        <span class="price-type text-blue">TRILOGY 3-PACK</span>
+                        <h3 class="price-val text-blue">PKR 990</h3>
+                        <p class="price-desc">Save PKR 60 vs single cans.</p>
+                        <ul class="price-list">
+                            <li><i class="fa-solid fa-check text-blue"></i> 1x Tropical Heat (Mango & Kick)</li>
+                            <li><i class="fa-solid fa-check text-blue"></i> 1x Zen Botanika (Focus Elixir)</li>
+                            <li><i class="fa-solid fa-check text-blue"></i> 1x Global Spice (Coconut & Cardamom)</li>
+                            <li><i class="fa-solid fa-check text-blue"></i> Free Priority Launch Dispatch</li>
+                        </ul>
+                        <button class="btn btn-primary w-full" onclick="openOrderModal('Trilogy 3-Can Combo (PKR 990)')">Pre-Order 3-Pack</button>
+                    </div>
+
+                    <div class="price-card">
+                        <span class="price-type">MONTHLY 12-CRATE</span>
+                        <h3 class="price-val">PKR 3,780</h3>
+                        <p class="price-desc">10% recurring subscription saving.</p>
+                        <ul class="price-list">
+                            <li><i class="fa-solid fa-check"></i> 12 Cans (Custom mix of flavors)</li>
+                            <li><i class="fa-solid fa-check"></i> Free Nationwide Delivery</li>
+                            <li><i class="fa-solid fa-check"></i> Monthly Auto-Refill Option</li>
+                        </ul>
+                        <button class="btn btn-outline w-full" onclick="openOrderModal('Monthly 12-Crate (PKR 3,780)')">Pre-Order Crate</button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-flex">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <span class="logo-badge sm">AX</span>
+                    <strong>ALPHA X FUSION ENERGY</strong>
+                </div>
+                <p>"When Energy Drains, Go Alpha." Formulated by students & entrepreneurs: Zain ul Abideen, Ayesha Farooq, Anesh Kumar, Hafsa Sheikh, Kinza Danish Ahmed.</p>
+            </div>
+
+            <div class="footer-copy">
+                <p>&copy; 2026 Alpha X Pakistan. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#hero">Top</a>
+                    <span>&bull;</span>
+                    <a href="#flavors">Flavors</a>
+                    <span>&bull;</span>
+                    <a href="#blog">Blog</a>
+                    <span>&bull;</span>
+                    <a href="#order">Order</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- MODAL: BLOG READER -->
+    <div class="modal-overlay" id="articleModal">
+        <div class="modal-box">
+            <div class="modal-head">
+                <span class="modal-tag" id="modalTag">BLOG POST</span>
+                <button class="modal-close" onclick="closeArticleModal()">&times;</button>
+            </div>
+            <div class="modal-content" id="modalBody">
+                <!-- Dynamically populated -->
+            </div>
+            <div class="modal-foot">
+                <button class="btn btn-primary btn-sm" onclick="closeArticleModal()">Close Article</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL: FAST PRE-ORDER -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-box max-w-md">
+            <div class="modal-head">
+                <h3>Pre-Order <span class="text-blue" id="orderModalTitle">Alpha X</span></h3>
+                <button class="modal-close" onclick="closeOrderModal()">&times;</button>
+            </div>
+            <div class="modal-content">
+                <form onsubmit="confirmOrder(event)">
+                    <div class="form-group">
+                        <label>Select Product:</label>
+                        <select id="orderProductSelect" onchange="updatePriceDisplay()">
+                            <option value="Alpha Neon Original (PKR 350)" selected>Single Can: Alpha Neon Original (PKR 350)</option>
+                            <option value="Tropical Heat (PKR 350)">Single Can: Tropical Heat (PKR 350)</option>
+                            <option value="Zen Botanika (PKR 350)">Single Can: Zen Botanika (PKR 350)</option>
+                            <option value="Global Spice (PKR 350)">Single Can: Global Spice (PKR 350)</option>
+                            <option value="Trilogy 3-Can Combo (PKR 990)">Trilogy 3-Can Combo (PKR 990)</option>
+                            <option value="Monthly 12-Crate (PKR 3,780)">Monthly 12-Crate (PKR 3,780)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Name:</label>
+                        <input type="text" placeholder="e.g. Zain Malik" required id="orderCustomerName">
+                    </div>
+
+                    <div class="form-group">
+                        <label>WhatsApp / Phone Number:</label>
+                        <input type="tel" placeholder="0300 1234567" required id="orderCustomerPhone">
+                    </div>
+
+                    <div class="form-group">
+                        <label>City & Delivery Address:</label>
+                        <textarea rows="2" placeholder="City, Campus / Hostel or Home address..." required id="orderCustomerAddress"></textarea>
+                    </div>
+
+                    <div class="order-summary-box">
+                        <div class="summary-line"><span>Estimated Total:</span><strong class="text-blue" id="orderTotalDisplay">PKR 350</strong></div>
+                        <div class="summary-line text-sm text-green"><span>Delivery:</span><strong>FREE Launch Promo</strong></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-full mt-4">
+                        Confirm Pre-Order (Cash on Delivery)
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="script.js"></script>
+</body>
+</html>
