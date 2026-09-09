@@ -175,6 +175,25 @@ img {
     gap: 10px;
 }
 
+.brand-logo-img {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+    transition: transform var(--trans);
+}
+.brand-logo:hover .brand-logo-img {
+    transform: scale(1.06);
+}
+.brand-logo-img.sm {
+    height: 28px;
+    width: auto;
+}
+
 .logo-badge {
     width: 36px;
     height: 36px;
@@ -479,7 +498,7 @@ main {
     height: 440px;
     max-width: 440px;
     display: block;
-    filter: drop-shadow(0 20px 35px rgba(0, 210, 255, 0.4));
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.65)) drop-shadow(0 0 15px rgba(0, 210, 255, 0.15));
     z-index: 2;
 }
 
@@ -490,7 +509,7 @@ main {
     transform: translate(-50%, -50%);
     width: 320px;
     height: 320px;
-    background: radial-gradient(circle, rgba(0, 210, 255, 0.35) 0%, rgba(0, 210, 255, 0.08) 50%, transparent 70%);
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, rgba(0, 210, 255, 0.10) 45%, transparent 70%);
     border-radius: 50%;
     z-index: 1;
     filter: blur(25px);
@@ -902,6 +921,7 @@ main {
     font-size: 1.05rem;
     font-weight: 800;
 }
+
 .footer-brand p {
     font-size: 0.85rem;
 }

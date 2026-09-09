@@ -11,9 +11,10 @@ let rimLight1, rimLight2, keyLight;
 const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
 
 /**
- * Build mathematically proportioned texture from can-blue.png (Zero Distortion)
+ * Build full 360° wraparound texture from bottle-hero.jpeg
+ * Seamlessly wraps Front Panel (Alpha X Fusion Vitality Burst) & Back Panel (Nutrition Audit, Ingredients & Barcode)
  */
-function createBlueCanTexture() {
+function createHeroBottleTexture() {
     const canvas = document.createElement('canvas');
     canvas.width = 2048;
     canvas.height = 1024;
@@ -22,157 +23,40 @@ function createBlueCanTexture() {
     const w = canvas.width;
     const h = canvas.height;
 
-    // 1. Dark Metallic Cyber Background
-    const bgGrad = ctx.createLinearGradient(0, 0, w, 0);
-    bgGrad.addColorStop(0, '#040912');
-    bgGrad.addColorStop(0.2, '#0c182a');
-    bgGrad.addColorStop(0.5, '#132845');
-    bgGrad.addColorStop(0.8, '#0c182a');
-    bgGrad.addColorStop(1, '#040912');
-    ctx.fillStyle = bgGrad;
+    // Match exact midnight dark-violet baseline color of bottle-hero.jpeg (#150a2d)
+    ctx.fillStyle = '#150a2d';
     ctx.fillRect(0, 0, w, h);
 
-    // Subtle metallic brush lines
-    ctx.strokeStyle = 'rgba(0, 210, 255, 0.04)';
-    ctx.lineWidth = 1;
-    for (let x = 0; x < w; x += 16) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, h);
-        ctx.stroke();
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.ClampToEdgeWrapping;
+    texture.generateMipmaps = true;
+    texture.minFilter = THREE.LinearMipmapLinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+
+    if (renderer && renderer.capabilities) {
+        texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
     }
 
-    // 2. Draw Front Center Blue Can Artwork from can-blue.png
+    // Load full bottle artwork from bottle-hero.jpeg
     const img = new Image();
-    img.src = 'can-blue.png';
+    img.src = 'bottle-hero.jpeg';
 
     const drawArtwork = () => {
-        if (img.complete && img.naturalWidth > 0) {
-            const sw = img.naturalWidth;
-            const sh = img.naturalHeight;
-            const aspect = sw / sh;
-
-            // Mathematical aspect-ratio compensation for cylinder (1.1318 multiplier prevents stretch)
-            const destH = 880;
-            const destW = Math.round(destH * aspect * 1.1318);
-            const destX = (w - destW) / 2;
-            const destY = (h - destH) / 2;
-
-            ctx.drawImage(img, 0, 0, sw, sh, destX, destY, destW, destH);
+        if (img.naturalWidth > 0) {
+            ctx.fillStyle = '#150a2d';
+            ctx.fillRect(0, 0, w, h);
+            ctx.drawImage(img, 0, 0, w, h);
             texture.needsUpdate = true;
         }
     };
 
     img.onload = drawArtwork;
-
-    // Procedural Fallback if image is loading
-    drawFallbackFront(ctx, w, h);
-    drawNutritionBackPanel(ctx, w, h);
-
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.ClampToEdgeWrapping;
-    texture.needsUpdate = true;
-
     if (img.complete) {
         drawArtwork();
     }
 
     return texture;
-}
-
-function drawFallbackFront(ctx, w, h) {
-    ctx.save();
-    const cx = w * 0.5;
-
-    const aura = ctx.createRadialGradient(cx, 380, 20, cx, 380, 240);
-    aura.addColorStop(0, 'rgba(255, 255, 255, 0.35)');
-    aura.addColorStop(0.5, 'rgba(0, 210, 255, 0.2)');
-    aura.addColorStop(1, 'rgba(0, 0, 0, 0)');
-    ctx.fillStyle = aura;
-    ctx.beginPath();
-    ctx.arc(cx, 380, 240, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.save();
-    ctx.translate(cx, 0);
-    ctx.scale(0.88, 1);
-
-    ctx.font = '800 190px "Inter", sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillStyle = '#ffffff';
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
-    ctx.shadowBlur = 20;
-    ctx.fillText('A', 0, 360);
-
-    ctx.font = '800 54px "Inter", sans-serif';
-    ctx.fillText('ALPHA  X', 0, 490);
-
-    ctx.font = '700 22px "Inter", sans-serif';
-    ctx.fillStyle = '#00d2ff';
-    ctx.fillText('FUSION ENERGY', 0, 535);
-
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
-    ctx.roundRect(-180, 610, 360, 90, 14);
-    ctx.fill();
-
-    ctx.font = '800 28px "Inter", sans-serif';
-    ctx.fillStyle = '#ffffff';
-    ctx.fillText('ALPHA NEON ORIGINAL', 0, 655);
-
-    ctx.font = '600 16px "Inter", sans-serif';
-    ctx.fillStyle = '#e2e8f0';
-    ctx.fillText('250 ML • 40% LESS SUGAR', 0, 685);
-
-    ctx.restore();
-    ctx.restore();
-}
-
-function drawNutritionBackPanel(ctx, w, h) {
-    ctx.save();
-    const bx = 300;
-    ctx.translate(bx, 0);
-    ctx.scale(0.88, 1);
-
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
-    ctx.roundRect(-140, 200, 280, 600, 14);
-    ctx.fill();
-
-    ctx.font = '800 20px "Inter", sans-serif';
-    ctx.fillStyle = '#00d2ff';
-    ctx.textAlign = 'left';
-    ctx.fillText('NUTRITION AUDIT', -115, 250);
-
-    ctx.font = '600 14px "Inter", sans-serif';
-    ctx.fillStyle = '#cbd5e1';
-    const facts = [
-        ['Serving Size', '250 ml'],
-        ['Calories', '42 kcal'],
-        ['Cane Sugars', '5.8 g (-40%)'],
-        ['Vitamin B6', '2.0 mg (142%)'],
-        ['Vitamin B12', '3.5 mcg (140%)'],
-        ['Vitamin C', '45.0 mg (50%)'],
-        ['Electrolytes', '120 mg'],
-        ['Real Extracts', '100% Origin']
-    ];
-
-    let y = 295;
-    facts.forEach(([k, v]) => {
-        ctx.fillText(k, -115, y);
-        ctx.textAlign = 'right';
-        ctx.fillText(v, 115, y);
-        ctx.textAlign = 'left';
-        y += 38;
-    });
-
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(-90, 690, 180, 50);
-    ctx.fillStyle = '#000000';
-    for (let b = -80; b < 80; b += Math.random() * 5 + 3) {
-        ctx.fillRect(b, 695, 2, 40);
-    }
-
-    ctx.restore();
 }
 
 /**
@@ -201,25 +85,25 @@ function initThree() {
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.0;
 
-    // 3. Lighting (Electric Blue & Key Ambient)
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.95);
+    // 3. Balanced Natural Studio Lighting (No over-exposure)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.60);
     scene.add(ambientLight);
 
-    keyLight = new THREE.DirectionalLight(0xffffff, 1.8);
+    keyLight = new THREE.DirectionalLight(0xffffff, 1.0);
     keyLight.position.set(4, 6, 6);
     scene.add(keyLight);
 
-    const fillLight = new THREE.DirectionalLight(0xffffff, 0.6);
+    const fillLight = new THREE.DirectionalLight(0xffffff, 0.35);
     fillLight.position.set(-5, -2, -3);
     scene.add(fillLight);
 
-    rimLight1 = new THREE.PointLight(0x00d2ff, 3.5, 12);
+    rimLight1 = new THREE.PointLight(0x00d2ff, 1.2, 10);
     rimLight1.position.set(-3, 2, 2.5);
     scene.add(rimLight1);
 
-    rimLight2 = new THREE.PointLight(0x00d2ff, 2.8, 12);
+    rimLight2 = new THREE.PointLight(0xa855f7, 0.8, 10);
     rimLight2.position.set(3, -2, 2);
     scene.add(rimLight2);
 
@@ -227,18 +111,21 @@ function initThree() {
     canGroup = new THREE.Group();
 
     const aluminumMaterial = new THREE.MeshStandardMaterial({
-        color: 0xd8d8d8,
-        metalness: 0.94,
-        roughness: 0.22
+        color: 0xaaaaaa,
+        metalness: 0.85,
+        roughness: 0.35
     });
 
     const radius = 0.90;
     const canH = 3.20;
     const cylinderGeo = new THREE.CylinderGeometry(radius, radius, canH, 64, 1, true);
+    // Align Front Panel (Golden 'A' & Alpha X Fusion) directly towards camera at start
+    cylinderGeo.rotateY(Math.PI * 0.516);
+
     const bodyMat = new THREE.MeshStandardMaterial({
-        map: createBlueCanTexture(),
-        metalness: 0.84,
-        roughness: 0.25
+        map: createHeroBottleTexture(),
+        metalness: 0.18,
+        roughness: 0.42
     });
     canBodyMesh = new THREE.Mesh(cylinderGeo, bodyMat);
     canGroup.add(canBodyMesh);
@@ -298,7 +185,7 @@ function initThree() {
     const ringMat = new THREE.MeshBasicMaterial({
         color: 0x00d2ff,
         transparent: true,
-        opacity: 0.55
+        opacity: 0.35
     });
     energyRing = new THREE.Mesh(ringGeo, ringMat);
     energyRing.rotation.x = Math.PI / 2.3;
